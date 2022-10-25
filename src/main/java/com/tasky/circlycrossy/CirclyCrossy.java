@@ -17,7 +17,12 @@ public class CirclyCrossy {
 
     public boolean makeAMove(PlayerMovement playerMovement) {
         if (rulesChecker.isValidMove(gameState, playerMovement)) {
-            // todo: implement
+            if (gameState.getCurrentPlayer() == 1) {
+                getCurrentGameState().getGameGrid()[playerMovement.getY()][playerMovement.getX()] = 'O';
+                gameState.setCurrentPlayer(2);
+            } else {
+                getCurrentGameState().getGameGrid()[playerMovement.getY()][playerMovement.getX()] = 'X';
+                gameState.setCurrentPlayer(1);}
             return true;
         } else {
             return false; // not a valid move
@@ -41,6 +46,10 @@ public class CirclyCrossy {
 
         public int getCurrentPlayer() {
             return currentPlayer;
+        }
+
+        public void setCurrentPlayer(int currentPlayer) {
+            this.currentPlayer = currentPlayer;
         }
 
         public int getWinner() {

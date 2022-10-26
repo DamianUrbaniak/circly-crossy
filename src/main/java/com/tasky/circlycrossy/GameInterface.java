@@ -19,7 +19,7 @@ public class GameInterface {
         ui.println("Number of players is set to " + DEFAULT_NUMBER_OF_PLAYERS);
         ui.println("Starting the game...");
 
-        while (!circlyCrossy.getCurrentGameState().hasWinner()) {
+        while (circlyCrossy.getCurrentGameState().getWinner() == 0) {
             printGameState(circlyCrossy.getCurrentGameState());
             ui.print("Type in your move [x,y]: ");
             PlayerMovement playerMovement = readPlayerMovementUntilNoException();
@@ -27,6 +27,7 @@ public class GameInterface {
                 ui.print("Illegal movement, type in your move again: ");
                 playerMovement = readPlayerMovementUntilNoException();
             }
+            RulesChecker.verifyThreeFields(circlyCrossy.getCurrentGameState());
         }
 
         ui.println("Game finished, player" + circlyCrossy.getCurrentGameState().getWinner() + " is the winner.");

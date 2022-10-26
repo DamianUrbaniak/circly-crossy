@@ -22,7 +22,8 @@ public class CirclyCrossy {
                 gameState.setCurrentPlayer(2);
             } else {
                 getCurrentGameState().getGameGrid()[playerMovement.getY()][playerMovement.getX()] = 'X';
-                gameState.setCurrentPlayer(1);}
+                gameState.setCurrentPlayer(1);
+            }
             return true;
         } else {
             return false; // not a valid move
@@ -32,7 +33,7 @@ public class CirclyCrossy {
     public static class GameState {
         private final char[][] gameGrid;
         private int currentPlayer;
-        private int winner;
+        private int winner = 0;
 
         public GameState(char[][] gameGrid) {
             this.gameGrid = gameGrid;
@@ -52,12 +53,15 @@ public class CirclyCrossy {
             this.currentPlayer = currentPlayer;
         }
 
+        public void setWinner(int winner) { this.winner = winner;}
+
         public int getWinner() {
             return winner;
         }
 
+
         public boolean hasWinner() {
-            return winner != 0;
+            return false;
         }
     }
 }

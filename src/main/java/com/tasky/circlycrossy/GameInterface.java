@@ -5,13 +5,20 @@ public class GameInterface {
     private static final int DEFAULT_NUMBER_OF_PLAYERS = 2;
 
     private final CirclyCrossy circlyCrossy;
-    private final MovementParser movementParser;
-    private final UserInterface ui;
 
-    public GameInterface(CirclyCrossy circlyCrossy, MovementParser movementParser, UserInterface ui) {
+    private final RulesChecker rulesChecker;
+
+    private final UserInterface ui;
+    private final MovementParser movementParser;
+
+    public GameInterface(CirclyCrossy circlyCrossy,
+                         MovementParser movementParser,
+                         RulesChecker rulesChecker,
+                         UserInterface ui) {
         this.circlyCrossy = circlyCrossy;
-        this.movementParser = movementParser;
+        this.rulesChecker = rulesChecker;
         this.ui = ui;
+        this.movementParser = movementParser;
     }
 
     public void startGame() {
@@ -19,15 +26,15 @@ public class GameInterface {
         ui.println("Number of players is set to " + DEFAULT_NUMBER_OF_PLAYERS);
         ui.println("Starting the game...");
 
-        while (circlyCrossy.getCurrentGameState().getWinner() == 0) {
+        while (!circlyCrossy.getCurrentGameState().hasWinner()) {
             printGameState(circlyCrossy.getCurrentGameState());
             ui.print("Type in your move [x,y]: ");
             PlayerMovement playerMovement = readPlayerMovementUntilNoException();
-            while (!circlyCrossy.makeAMove(playerMovement)) {
+            while (isAgainstRules(playerMovement) && !circlyCrossy.makeAMove(playerMovement)) {
                 ui.print("Illegal movement, type in your move again: ");
                 playerMovement = readPlayerMovementUntilNoException();
+                isAgainstRules(playerMovement);
             }
-            RulesChecker.verifyThreeFields(circlyCrossy.getCurrentGameState());
         }
 
         ui.println("Game finished, player" + circlyCrossy.getCurrentGameState().getWinner() + " is the winner.");
@@ -41,6 +48,21 @@ public class GameInterface {
                 ui.print(e.getMessage() + ", type in your move again: ");
             }
         }
+    }
+
+    private boolean isAgainstRules(PlayerMovement playerMovement) {
+        boolean moveAgainstRules = true;
+        try {
+            rulesChecker.isValidMove(circlyCrossy.getCurrentGameState(), playerMovement);
+
+        } catch (IllegalArgumentException e) {
+            moveAgainstRules = false;
+            ui.print(e.getMessage() + ", type in your move again. \n");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            moveAgainstRules = false;
+            ui.print(e.getMessage() + ", type in your move again. \n");
+        }
+        return moveAgainstRules;
     }
 
     private void printGameState(CirclyCrossy.GameState gameState) {

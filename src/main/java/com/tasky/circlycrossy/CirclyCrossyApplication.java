@@ -11,6 +11,7 @@ public class CirclyCrossyApplication {
         MovementParser movementParser = new MovementParser();
         UserInterface userInterface = new UserInterface(new Scanner(System.in), System.out);
 
-        new GameInterface(circlyCrossy, movementParser, userInterface).startGame();
+
+        new GameInterface(circlyCrossy, movementParser, rulesChecker, userInterface).startGame();
     }
 }

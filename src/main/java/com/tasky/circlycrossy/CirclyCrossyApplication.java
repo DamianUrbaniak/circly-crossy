@@ -7,7 +7,7 @@ public class CirclyCrossyApplication {
     public static void main(String[] args) {
 
         RulesChecker rulesChecker = new RulesChecker();
-        CirclyCrossy circlyCrossy = new CirclyCrossy(rulesChecker);
+        CirclyCrossy circlyCrossy = new CirclyCrossy();
         MovementParser movementParser = new MovementParser();
         UserInterface userInterface = new UserInterface(new Scanner(System.in), System.out);
 

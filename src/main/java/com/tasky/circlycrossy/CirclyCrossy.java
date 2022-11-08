@@ -3,11 +3,11 @@ package com.tasky.circlycrossy;
 public class CirclyCrossy {
 
     public static final int DEFAULT_GRID_SIZE = 3;
-    private final RulesChecker rulesChecker;
+
     private final GameState gameState;
 
-    public CirclyCrossy(RulesChecker rulesChecker) {
-        this.rulesChecker = rulesChecker;
+    public CirclyCrossy() {
+
         gameState = new GameState(new char[DEFAULT_GRID_SIZE][DEFAULT_GRID_SIZE]);
     }
 
@@ -72,7 +72,6 @@ public class CirclyCrossy {
 
         public boolean hasWinner() {
 
-            char[][] actualGameGrid = getGameGrid();
             int circlesCount = 0;
             int crossesCount = 0;
             boolean result = false;

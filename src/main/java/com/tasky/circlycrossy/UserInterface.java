@@ -23,7 +23,6 @@ public class UserInterface {
     public String nextString() {
         return scanner.next();
     }
-
     public String nextLine() {
         return scanner.nextLine();
     }

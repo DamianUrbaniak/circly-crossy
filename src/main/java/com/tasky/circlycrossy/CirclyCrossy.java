@@ -74,7 +74,7 @@ public class CirclyCrossy {
 
             int circlesCount = 0;
             int crossesCount = 0;
-            boolean result = false;
+
 //checking diagonals
             for (int i = 0; i < gameGrid.length; i++) {
 
@@ -86,10 +86,11 @@ public class CirclyCrossy {
                 }
                 if (circlesCount == 3) {
                     setWinner(1);
-                    result = true;
+                    return true;
                 } else if (crossesCount == 3) {
                     setWinner(2);
-                    result = true;
+                    return true;
+
                 }
             }
             crossesCount = 0;
@@ -103,10 +104,10 @@ public class CirclyCrossy {
                 }
                 if (circlesCount == 3) {
                     setWinner(1);
-                    result = true;
+                    return true;
                 } else if (crossesCount == 3) {
                     setWinner(2);
-                    result = true;
+                    return true;
                 }
             }
             crossesCount = 0;
@@ -114,7 +115,8 @@ public class CirclyCrossy {
 
 //checking horizontal lines
             for (int i = 0; i < gameGrid.length; i++) {
-
+                crossesCount = 0;
+                circlesCount = 0;
                 for (int j = 0; j < gameGrid.length; j++) {
                     if (gameGrid[i][j] == 'X') {
                         crossesCount++;
@@ -124,19 +126,20 @@ public class CirclyCrossy {
                     }
                     if (circlesCount == 3) {
                         setWinner(1);
-                        result = true;
+                        return true;
                     } else if (crossesCount == 3) {
                         setWinner(2);
-                        result = true;
+                        return true;
                     }
                 }
             }
             crossesCount = 0;
             circlesCount = 0;
 //checking vertical lines
-            if (!result) {
-                for (int i = 0; i < gameGrid.length; i++) {
 
+                for (int i = 0; i < gameGrid.length; i++) {
+                    crossesCount = 0;
+                    circlesCount = 0;
                     for (int j = 0; j < gameGrid.length; j++) {
                         if (gameGrid[j][i] == 'X') {
                             crossesCount++;
@@ -146,15 +149,14 @@ public class CirclyCrossy {
                         }
                         if (circlesCount == 3) {
                             setWinner(1);
-                            result = true;
+                            return true;
                         } else if (crossesCount == 3) {
                             setWinner(2);
-                            result = true;
+                            return true;
                         }
                     }
                 }
-            }
-            return result;
+            return false;
         }
     }
 }

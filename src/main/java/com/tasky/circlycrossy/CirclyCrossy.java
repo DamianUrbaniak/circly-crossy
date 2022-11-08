@@ -110,8 +110,6 @@ public class CirclyCrossy {
                     return true;
                 }
             }
-            crossesCount = 0;
-            circlesCount = 0;
 
 //checking horizontal lines
             for (int i = 0; i < gameGrid.length; i++) {
@@ -133,29 +131,28 @@ public class CirclyCrossy {
                     }
                 }
             }
-            crossesCount = 0;
-            circlesCount = 0;
+
 //checking vertical lines
 
-                for (int i = 0; i < gameGrid.length; i++) {
-                    crossesCount = 0;
-                    circlesCount = 0;
-                    for (int j = 0; j < gameGrid.length; j++) {
-                        if (gameGrid[j][i] == 'X') {
-                            crossesCount++;
-                        }
-                        if (gameGrid[j][i] == 'O') {
-                            circlesCount++;
-                        }
-                        if (circlesCount == 3) {
-                            setWinner(1);
-                            return true;
-                        } else if (crossesCount == 3) {
-                            setWinner(2);
-                            return true;
-                        }
+            for (int i = 0; i < gameGrid.length; i++) {
+                crossesCount = 0;
+                circlesCount = 0;
+                for (int j = 0; j < gameGrid.length; j++) {
+                    if (gameGrid[j][i] == 'X') {
+                        crossesCount++;
+                    }
+                    if (gameGrid[j][i] == 'O') {
+                        circlesCount++;
+                    }
+                    if (circlesCount == 3) {
+                        setWinner(1);
+                        return true;
+                    } else if (crossesCount == 3) {
+                        setWinner(2);
+                        return true;
                     }
                 }
+            }
             return false;
         }
     }
